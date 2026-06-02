@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { LiveChart } from '../../components';
+import LiveChart from '../../components/LiveChart';
 
 const Cube3D = dynamic(() => import('../../components/Cube3D'), { ssr: false });
 
