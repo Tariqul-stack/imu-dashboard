@@ -1,7 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { LiveChart } from '../../components';
+
+const Cube3D = dynamic(() => import('../../components/Cube3D'), { ssr: false });
 
 
 export default function IMUDashboard() {
@@ -194,6 +197,19 @@ export default function IMUDashboard() {
             );
           })}
         </div>
+
+        {/* 3D ORIENTATION */}
+        <section className="flex flex-col gap-4 mt-4">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 border-l-2 border-indigo-500 pl-2">
+            3D ORIENTATION
+          </h2>
+          <div className="bg-[#1a1a2e] border border-white/5 rounded-2xl p-6 flex flex-col items-center justify-center gap-4">
+            <Cube3D roll={imuData.roll} pitch={imuData.pitch} yaw={imuData.yaw} />
+            <span className="text-xs text-slate-400 font-medium uppercase tracking-wider">
+              Real-time 3D orientation from IMU data
+            </span>
+          </div>
+        </section>
 
         {/* ORIENTATION CHARTS */}
         <section className="flex flex-col gap-4 mt-4">
