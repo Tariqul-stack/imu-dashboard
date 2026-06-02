@@ -2,14 +2,17 @@
 
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-
 export default function Cube3D({ roll = 0, pitch = 0, yaw = 0 }) {
   const containerRef = useRef(null);
-  const rotationRef = useRef({ roll: 0, pitch: 0, yaw: 0 });
+  const rollRef = useRef(roll);
+  const pitchRef = useRef(pitch);
+  const yawRef = useRef(yaw);
 
-  // Keep rotation coordinates updated in a ref to avoid stale closures in animate loop
+
   useEffect(() => {
-    rotationRef.current = { roll, pitch, yaw };
+    rollRef.current = roll;
+    pitchRef.current = pitch;
+    yawRef.current = yaw;
   }, [roll, pitch, yaw]);
 
   useEffect(() => {
@@ -59,15 +62,10 @@ export default function Cube3D({ roll = 0, pitch = 0, yaw = 0 }) {
 
     // Animation / render loop
     const animate = () => {
-      // Convert degrees to radians
-      const radX = rotationRef.current.roll * (Math.PI / 180);
-      const radY = rotationRef.current.pitch * (Math.PI / 180);
-      const radZ = rotationRef.current.yaw * (Math.PI / 180);
-
       // Apply rotation to cube (edgesLine inherits rotation since it is child of cube)
-      cube.rotation.x = radX;
-      cube.rotation.y = radY;
-      cube.rotation.z = radZ;
+      cube.rotation.x = rollRef.current * (Math.PI / 180);
+      cube.rotation.y = pitchRef.current * (Math.PI / 180);
+      cube.rotation.z = yawRef.current * (Math.PI / 180);
 
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
