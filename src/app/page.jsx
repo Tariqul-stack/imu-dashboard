@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { LiveChart } from '../../components';
+
 
 export default function IMUDashboard() {
   const [connected, setConnected] = useState(false);
@@ -13,6 +15,8 @@ export default function IMUDashboard() {
     az: 9.8,
     timestamp: 0
   });
+  const [history, setHistory] = useState([]);
+
 
   useEffect(() => {
     let ws = null;
@@ -30,6 +34,10 @@ export default function IMUDashboard() {
         try {
           const data = JSON.parse(event.data);
           setImuData(data);
+          setHistory((prev) => {
+            const nextHistory = [...prev, data];
+            return nextHistory.slice(-150);
+          });
         } catch (error) {
           console.error('Error parsing IMU data:', error);
         }
@@ -186,6 +194,78 @@ export default function IMUDashboard() {
             );
           })}
         </div>
+
+        {/* ORIENTATION CHARTS */}
+        <section className="flex flex-col gap-4 mt-4">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 border-l-2 border-indigo-500 pl-2">
+            ORIENTATION CHARTS
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <LiveChart
+              data={history}
+              dataKey="roll"
+              color="#3a86ff"
+              label="Roll"
+              unit="°"
+              min={-35}
+              max={35}
+            />
+            <LiveChart
+              data={history}
+              dataKey="pitch"
+              color="#8338ec"
+              label="Pitch"
+              unit="°"
+              min={-25}
+              max={25}
+            />
+            <LiveChart
+              data={history}
+              dataKey="yaw"
+              color="#ff006e"
+              label="Yaw"
+              unit="°"
+              min={0}
+              max={360}
+            />
+          </div>
+        </section>
+
+        {/* ACCELEROMETER CHARTS */}
+        <section className="flex flex-col gap-4 mt-4">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 border-l-2 border-emerald-500 pl-2">
+            ACCELEROMETER CHARTS
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <LiveChart
+              data={history}
+              dataKey="ax"
+              color="#06d6a0"
+              label="AX"
+              unit="g"
+              min={-1}
+              max={1}
+            />
+            <LiveChart
+              data={history}
+              dataKey="ay"
+              color="#ffbe0b"
+              label="AY"
+              unit="g"
+              min={-1}
+              max={1}
+            />
+            <LiveChart
+              data={history}
+              dataKey="az"
+              color="#fb5607"
+              label="AZ"
+              unit="g"
+              min={9.5}
+              max={10.1}
+            />
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
