@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IMU Sensor Dashboard
 
-## Getting Started
+A real-time IMU sensor data visualization dashboard built with Next.js, WebSocket, Recharts, and Three.js.
 
-First, run the development server:
+## Features
+- Real-time WebSocket data streaming at ~60Hz
+- Live Roll / Pitch / Yaw orientation charts
+- 3D cube visualization responding to IMU orientation
+- Gait step detection with refractory interval
+- CSV data export
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech Stack
+- Next.js 15
+- WebSocket (ws)
+- Recharts
+- Three.js
+- Tailwind CSS
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run Locally
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Install dependencies:
+   ```
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Start the WebSocket server:
+   ```
+   node server/ws-server.js
+   ```
 
-## Learn More
+3. Start the Next.js app:
+   ```
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open http://localhost:3000
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Context
+This dashboard was built as a demo to visualize IMU sensor data — inspired by research on wearable wireless IMU systems for real-time locomotion sensing.

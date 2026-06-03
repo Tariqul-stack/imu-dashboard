@@ -1,3 +1,5 @@
+// This WebSocket server runs locally and is NOT deployed to Vercel.
+// It streams simulated IMU sensor data to the Next.js dashboard via ws://localhost:8080.
 const WebSocket = require('ws');
 
 const wss = new WebSocket.Server({ port: 8080 }, () => {
