@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import LiveChart from '../../components/LiveChart';
+import GaitCounter from '../../components/GaitCounter';
 
 const Cube3D = dynamic(() => import('../../components/Cube3D'), { ssr: false });
 
@@ -209,6 +210,14 @@ export default function IMUDashboard() {
               Real-time 3D orientation from IMU data
             </span>
           </div>
+        </section>
+
+        {/* GAIT DETECTION */}
+        <section className="flex flex-col gap-4 mt-4">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 border-l-2 border-emerald-500 pl-2">
+            GAIT DETECTION
+          </h2>
+          <GaitCounter az={imuData.az} timestamp={imuData.timestamp} />
         </section>
 
         {/* ORIENTATION CHARTS */}

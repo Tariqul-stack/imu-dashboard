@@ -26,8 +26,8 @@ wss.on('connection', (ws) => {
     // ay random small number between -0.5 and 0.5
     const ay = (Math.random() - 0.5);
     
-    // az near 9.8 with small random noise
-    const az = 9.8 + (Math.random() - 0.5) * 0.2;
+    // az simulates walking gait — sine wave with ~500ms period dipping below 9.5
+    const az = 9.8 + Math.sin(Date.now() / 250) * 0.4;
 
     const data = {
       timestamp: Date.now(),
