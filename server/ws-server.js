@@ -2,8 +2,10 @@
 // It streams simulated IMU sensor data to the Next.js dashboard via ws://localhost:8080.
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8080 }, () => {
-  console.log('WebSocket server is running on port 8080');
+const PORT = process.env.PORT || 8080;
+
+const wss = new WebSocket.Server({ port: PORT }, () => {
+  console.log(`WebSocket server is running on port ${PORT}`);
 });
 
 wss.on('connection', (ws) => {
