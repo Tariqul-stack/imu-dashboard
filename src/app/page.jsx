@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import LiveChart from '../../components/LiveChart';
 import GaitCounter from '../../components/GaitCounter';
+import ExportCSV from '../../components/ExportCSV';
 
 const Cube3D = dynamic(() => import('../../components/Cube3D'), { ssr: false });
 
@@ -107,16 +108,19 @@ export default function IMUDashboard() {
         </div>
 
         {/* Connection Status Indicator */}
-        <div className="flex items-center gap-2.5 bg-white/5 border border-white/5 px-4 py-2 rounded-full">
-          <span className="relative flex h-2 w-2">
-            {connected && (
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            )}
-            <span className={`relative inline-flex rounded-full h-2 w-2 ${connected ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
-          </span>
-          <span className="text-xs font-semibold tracking-wider uppercase text-slate-300">
-            {connected ? 'Connected' : 'Disconnected'}
-          </span>
+        <div className="flex items-center gap-3">
+          <ExportCSV history={history} />
+          <div className="flex items-center gap-2.5 bg-white/5 border border-white/5 px-4 py-2 rounded-full">
+            <span className="relative flex h-2 w-2">
+              {connected && (
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              )}
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${connected ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
+            </span>
+            <span className="text-xs font-semibold tracking-wider uppercase text-slate-300">
+              {connected ? 'Connected' : 'Disconnected'}
+            </span>
+          </div>
         </div>
       </header>
 
