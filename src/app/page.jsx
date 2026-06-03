@@ -29,7 +29,8 @@ export default function IMUDashboard() {
 
     function connect() {
       // Connect to the local WebSocket server
-      ws = new WebSocket('ws://localhost:8080');
+      const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8080';
+      ws = new WebSocket(wsUrl);
 
       ws.onopen = () => {
         setConnected(true);
